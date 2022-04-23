@@ -1,6 +1,7 @@
 import Header from "./Header";
 import BigSidedish from "./BigSidedish";
 import SmallSidedish from "./SmallSidedish";
+import Popup from "./Popup";
 
 function App() {
     return (
@@ -8,6 +9,7 @@ function App() {
             <Header />
             <BigSidedish />
             <SmallSidedish />
+            <Popup />
         </>
     );
 }
