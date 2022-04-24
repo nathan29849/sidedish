@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import "./SmallSidedish.css";
 import "./Popup.css";
 
 function SmallCard({ id, img, text, des, pre, cur, lan }) {
@@ -177,4 +176,4 @@ function ProductDetailPopup() {
     );
 }
 
-export default Popup;
+export default ProductDetailPopup;
