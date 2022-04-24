@@ -1,4 +1,5 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
+import { Animated, FlatList, View } from "react-native-web";
 import "./SmallSidedish.css";
 
 function SmallCard({ id, img, text, des, pre, cur, lan }) {
@@ -73,8 +74,50 @@ function SmallSidedishCard() {
 }
 
 function SmallSidedish() {
+    const [error, setError] = useState("null");
+    const [isLoaded, setIsLoaded] = useState("false");
+    const [items, setItems] = useState([]);
+
+    useEffect(() => {
+        fetch(
+            "https://273b4433-0674-40c4-9d88-6ab939cd01f8.mock.pstmn.io/api/dish?section=정갈한-밑반찬"
+        )
+            .then((res) => res.json())
+            .then(
+                (result) => {
+                    console.log(result);
+                    setItems(result);
+                    setIsLoaded(true);
+                },
+                (error) => {
+                    setIsLoaded(true);
+                    setError(error);
+                }
+            );
+    }, []);
+
+    const dataLoaded = () => {
+        if (isLoaded) {
+            return items;
+        }
+    };
+
+    const slider = useRef(new Animated.ValueXY()).current;
+
     const dishSlider = () => {
         console.log("dish slides!");
+    };
+
+    const renderItems = ({ dish }) => {
+        <SmallCard
+            id={dish.dishId}
+            img={dish.imagePath}
+            text={dish.title}
+            des={dish.description}
+            pre={dish.price}
+            cur={dish.price}
+            lan={dish.stock}
+        />;
     };
 
     return (
@@ -84,10 +127,21 @@ function SmallSidedish() {
                     식탁을 풍성하게 하는 정갈한 밑반찬
                 </h3>
             </div>
-            <button onClick={dishSlider}>pre</button>
-            <div className="small-sidedish__cards">
-                <SmallSidedishCard />
+            <div className="flatlist">
+                <FlatList
+                    className="small-sidedish__cards"
+                    data={dataLoaded}
+                    renderItem={renderItems}
+                    onScroll={Animated.event(
+                        [{ nativeEvent: { contentOffset: { x: slider.x } } }],
+                        { useNativeDriver: false }
+                    )}
+                    keyExtractor={(item) => item.id}
+                />
             </div>
+
+            <button onClick={dishSlider}>pre</button>
+            <button onClick={dishSlider}>next</button>
         </div>
     );
 }
