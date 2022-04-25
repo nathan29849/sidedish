@@ -1,10 +1,11 @@
+import React from "react";
 import { useEffect, useState, useRef } from "react";
 import { Animated, FlatList, View } from "react-native-web";
 import "./SmallSidedish.css";
 
 function SmallCard({ id, img, text, des, pre, cur, lan }) {
     return (
-        <li className="small-sidedish__card" id={id}>
+        <li className="small-sidedish__card carousel-item" id={id}>
             <div className="small-sidedish__card-img-container">
                 <img className="small-sidedish__card-img" src={img} />
             </div>
@@ -73,6 +74,55 @@ function SmallSidedishCard() {
     }
 }
 
+function CarouselItem({ children, width }) {
+    return (
+        <div className="carousel-item" style={{ width: width }}>
+            {children}
+        </div>
+    );
+}
+
+function Carousel({ children }) {
+    const [activeIndex, setActiveIndex] = useState(0);
+    const updateIndex = (newIndex) => {
+        if (newIndex < 0) {
+            newIndex = 0;
+        } else if (newIndex >= React.Children.count(children)) {
+            newIndex = React.Children.count(children) - 1;
+        }
+
+        setActiveIndex(newIndex);
+    };
+    return (
+        <div className="carousel">
+            <div
+                className="inner"
+                style={{ transform: `translateX(-${activeIndex * 100}%)` }}
+            >
+                {React.Children.map(children, (child, index) => {
+                    return React.cloneElement(child, { width: "100%" });
+                })}
+            </div>
+            <div className="indicators">
+                <button
+                    onClick={() => {
+                        updateIndex(activeIndex - 1);
+                    }}
+                >
+                    Prev
+                </button>
+                <button
+                    onClick={() => {
+                        updateIndex(activeIndex + 1);
+                    }}
+                >
+                    Next
+                </button>
+            </div>
+        </div>
+    );
+}
+
 function SmallSidedish() {
     const [error, setError] = useState("null");
     const [isLoaded, setIsLoaded] = useState("false");
@@ -96,52 +146,6 @@ function SmallSidedish() {
             );
     }, []);
 
-    const dataLoaded = () => {
-        if (isLoaded) {
-            return items;
-        }
-    };
-
-    const slider = useRef(new Animated.ValueXY()).current;
-
-    const dishSlider = () => {
-        console.log("dish slides!");
-    };
-
-    const [scrollViewWidth, setScrollViewWidth] = useState(0);
-    const boxWidth = scrollViewWidth * 0.8;
-    const boxDistance = scrollViewWidth - boxWidth;
-    const halfBoxDistance = boxDistance / 2;
-
-    const renderItems = ({ dish, index }) => {
-        <Animated.View
-            style={{
-                transform: [
-                    {
-                        scale: slider.x.interpolate({
-                            inputRange: [
-                                (index - 1) * boxWidth - halfBoxDistance,
-                                index * boxWidth - halfBoxDistance,
-                            ],
-                        }),
-                    },
-                ],
-            }}
-        >
-            <View>
-                <SmallCard
-                    id={dish.dishId}
-                    img={dish.imagePath}
-                    text={dish.title}
-                    des={dish.description}
-                    pre={dish.price}
-                    cur={dish.price}
-                    lan={dish.stock}
-                />
-            </View>
-        </Animated.View>;
-    };
-
     return (
         <div className="small-sidedish">
             <div className="small-sidedish__header">
@@ -149,23 +153,21 @@ function SmallSidedish() {
                     식탁을 풍성하게 하는 정갈한 밑반찬
                 </h3>
             </div>
-            <div className="flatlist">
-                <FlatList
-                    className="small-sidedish__cards"
-                    data={dataLoaded}
-                    onScroll={Animated.event(
-                        [{ nativeEvent: { contentOffset: { x: slider.x } } }],
-                        { useNativeDriver: false }
-                    )}
-                    keyExtractor={(item) => item.id}
-                    renderItem={renderItems}
-                />
-            </div>
 
-            <button onClick={dishSlider}>pre</button>
-            <button onClick={dishSlider}>next</button>
+            <Carousel></Carousel>
         </div>
     );
 }
 
+{
+    /* <SmallCard
+        id={dish.dishId}
+        img={dish.imagePath}
+        text={dish.title}
+        des={dish.description}
+        pre={dish.price}
+        cur={dish.price}
+        lan={dish.stock}
+    />; */
+}
 export default SmallSidedish;
