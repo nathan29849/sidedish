@@ -108,16 +108,38 @@ function SmallSidedish() {
         console.log("dish slides!");
     };
 
-    const renderItems = ({ dish }) => {
-        <SmallCard
-            id={dish.dishId}
-            img={dish.imagePath}
-            text={dish.title}
-            des={dish.description}
-            pre={dish.price}
-            cur={dish.price}
-            lan={dish.stock}
-        />;
+    const [scrollViewWidth, setScrollViewWidth] = useState(0);
+    const boxWidth = scrollViewWidth * 0.8;
+    const boxDistance = scrollViewWidth - boxWidth;
+    const halfBoxDistance = boxDistance / 2;
+
+    const renderItems = ({ dish, index }) => {
+        <Animated.View
+            style={{
+                transform: [
+                    {
+                        scale: slider.x.interpolate({
+                            inputRange: [
+                                (index - 1) * boxWidth - halfBoxDistance,
+                                index * boxWidth - halfBoxDistance,
+                            ],
+                        }),
+                    },
+                ],
+            }}
+        >
+            <View>
+                <SmallCard
+                    id={dish.dishId}
+                    img={dish.imagePath}
+                    text={dish.title}
+                    des={dish.description}
+                    pre={dish.price}
+                    cur={dish.price}
+                    lan={dish.stock}
+                />
+            </View>
+        </Animated.View>;
     };
 
     return (
@@ -131,12 +153,12 @@ function SmallSidedish() {
                 <FlatList
                     className="small-sidedish__cards"
                     data={dataLoaded}
-                    renderItem={renderItems}
                     onScroll={Animated.event(
                         [{ nativeEvent: { contentOffset: { x: slider.x } } }],
                         { useNativeDriver: false }
                     )}
                     keyExtractor={(item) => item.id}
+                    renderItem={renderItems}
                 />
             </div>
 
