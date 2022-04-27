@@ -148,14 +148,14 @@ function SmallSidedish() {
                         return (
                             <>
                                 <CarouselItem width={per}>
-                                    <SampleCard
+                                    <SmallCard
                                         img={dish.imagePath}
                                         text={dish.title}
                                         des={dish.description}
                                         pre={dish.price}
                                         cur={dish.price}
                                         lan={dish.stock}
-                                    ></SampleCard>
+                                    ></SmallCard>
                                 </CarouselItem>
                             </>
                         );
