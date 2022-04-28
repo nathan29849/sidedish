@@ -1,4 +1,6 @@
+import { useState } from "react";
 import {
+    CardWrapper,
     ImgWrapper,
     Img,
     TextContainer,
@@ -28,6 +30,9 @@ function Card({
     discountPrice,
     eventBadges,
 }) {
+    const [open, setOpen] = useState(false);
+    const openPopup = () => {setOpen(true)};
+    const closePopup = () => {setOpen(false)};
     const originPrice = (
         <Price isClientPrice={false}>{fixedPrice.toLocaleString()}원</Price>
     );
@@ -39,7 +44,7 @@ function Card({
     const eventTags = eventBadges ? EventBadges(eventBadges) : null;
 
     return (
-        <li>
+        <CardWrapper onClick={openPopup}>
             <ImgWrapper>
                 <Img alt={title} src={image} />
             </ImgWrapper>
@@ -56,7 +61,7 @@ function Card({
                 </TextContainer>
                 {eventTags}
             </div>
-        </li>
+        </CardWrapper>
     );
 }
 

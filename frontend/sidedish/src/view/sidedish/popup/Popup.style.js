@@ -1,6 +1,7 @@
 import styled from "styled-components";
 const Popup = styled.div`
     display: ${({ show }) => (show ? "flex" : "none")};
+    position: absolute;
     justify-content: center;
     width: 100%;
     height: 100%;

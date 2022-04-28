@@ -1,5 +1,6 @@
 import { CardsContainer } from "./Sidedish.style";
 import Card from "./card/Card";
+import ProductDetailPopup from "./popup/Popup";
 
 function SidedishCards({ dishes }) {
     if (!dishes) {
@@ -7,6 +8,7 @@ function SidedishCards({ dishes }) {
     }
 
     const sidedishCards = dishes.map((dish) => (
+        <>
         <Card
             key={dish.dishId}
             title={dish.title}
@@ -16,6 +18,11 @@ function SidedishCards({ dishes }) {
             discountPrice={dish.discountPrice}
             eventBadges={dish.discounts}
         />
+        <ProductDetailPopup
+            
+        />
+        </>
+
     ));
 
     return <CardsContainer>{sidedishCards}</CardsContainer>;

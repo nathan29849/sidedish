@@ -120,21 +120,26 @@ function RelatedProductPart(){
 }
 
 
-function ProductDetailPopup() {
-    const [show, setShow] = useState(true);
-
-    const showPopup = () => {
-        setShow(true);
-    };
-    const hidePopup = () => {
-        setShow(false);
-    }
+function ProductDetailPopup(props) {
+    const {
+        handleClose,
+        show
+    } = {...props};
+    const closeProductDetailPopup = () => handleClose(true);
+    
+    // const [show, setShow] = useState(true);
+    // const showPopup = () => {
+    //     setShow(true);
+    // };
+    // const hidePopup = () => {
+    //     setShow(false);
+    // }
 
     return (
         <>
         <Popup show={show}>
             <PopupBox>
-                <PopupProductInfoCloseBtn onClick={hidePopup}>닫기</PopupProductInfoCloseBtn>
+                <PopupProductInfoCloseBtn onClick={closeProductDetailPopup}>닫기</PopupProductInfoCloseBtn>
                 <PopupProductPart />
                 <RelatedProductPart />
             </PopupBox>
