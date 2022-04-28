@@ -42,7 +42,10 @@ const PopupProductInfo = styled.div`
     left: 472px;
     top: 76px;
 `;
-const PopupProductInfoCloseBtn = styled.button`
+const PopupProductInfoCloseBtn = styled.span`
+    background-color: #fff;
+    border: none;
+
     width: 30px;
     height: 26px;
     left: 882px;
@@ -121,18 +124,21 @@ const PopupProductInfoBadgeAndPriceTag = styled.span`
     margin: 0px 4px;
 `;
 const PopupProductDetailSection1 = styled.div`
-    width: auto;
-    height: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
 `;
 const PopupProductDetailSection2 = styled.div`
-    width: auto;
-    height: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
 `;
 const PopupProductDetailSection3 = styled.div`
     width: auto;
     height: auto;
 `;
-const PopupproductInfoPoint = styled.span`
+const PopupproductInfoPoint = styled.div`
     display: flex;
     flex-direction: row;
     align-items: flex-start;
@@ -144,7 +150,69 @@ const PopupproductInfoPoint = styled.span`
     left: 0px;
     top: 0px;
 `;
-const PopupproductInfoDeliveryInfo = styled.span`
+const PopupproductInfoPointText = styled.span`
+    /* text */
+
+    position: static;
+    width: 364px;
+    height: 18px;
+    left: 76px;
+    top: 0px;
+
+    /* Regular/X-Small Regular */
+
+    font-family: "Noto Sans KR";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 18px;
+    /* identical to box height, or 150% */
+
+    letter-spacing: -0.004em;
+
+    /* GreyScale/Black */
+
+    color: #1b1b1b;
+
+    /* Inside auto layout */
+
+    flex: none;
+    order: 1;
+    flex-grow: 0;
+`;
+const PopupproductInfoPointLabel = styled.span`
+    /* label */
+
+    position: static;
+    width: 60px;
+    height: 18px;
+    left: 0px;
+    top: 0px;
+
+    /* Regular/X-Small Regular */
+
+    font-family: "Noto Sans KR";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 18px;
+    /* identical to box height, or 150% */
+
+    letter-spacing: -0.004em;
+
+    /* GreyScale/Grey2 */
+
+    color: #777777;
+
+    /* Inside auto layout */
+
+    flex: none;
+    order: 0;
+    flex-grow: 0;
+    margin: 0px 16px;
+`;
+
+const PopupproductInfoDeliveryInfo = styled.div`
     display: flex;
     flex-direction: row;
     align-items: flex-start;
@@ -161,7 +229,69 @@ const PopupproductInfoDeliveryInfo = styled.span`
     flex-grow: 0;
     margin: 8px 0px;
 `;
-const PopupproductInfoCharge = styled.span`
+const PopupproductInfoDeliveryInfoText = styled.span`
+    /* text */
+
+    position: static;
+    width: 364px;
+    height: 18px;
+    left: 76px;
+    top: 0px;
+
+    /* Regular/X-Small Regular */
+
+    font-family: "Noto Sans KR";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 18px;
+    /* identical to box height, or 150% */
+
+    letter-spacing: -0.004em;
+
+    /* GreyScale/Black */
+
+    color: #1b1b1b;
+
+    /* Inside auto layout */
+
+    flex: none;
+    order: 1;
+    flex-grow: 0;
+    margin: 0px 16px;
+`;
+const PopupproductInfoDeliveryInfoLabel = styled.span`
+    /* label */
+
+    position: static;
+    width: 60px;
+    height: 18px;
+    left: 0px;
+    top: 0px;
+
+    /* Regular/X-Small Regular */
+
+    font-family: "Noto Sans KR";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 18px;
+    /* identical to box height, or 150% */
+
+    letter-spacing: -0.004em;
+
+    /* GreyScale/Grey2 */
+
+    color: #777777;
+
+    /* Inside auto layout */
+
+    flex: none;
+    order: 0;
+    flex-grow: 0;
+    margin: 0px 16px;
+`;
+const PopupproductInfoCharge = styled.div`
     display: flex;
     flex-direction: row;
     align-items: flex-start;
@@ -178,6 +308,68 @@ const PopupproductInfoCharge = styled.span`
     flex-grow: 0;
     margin: 8px 0px;
 `;
+const PopupproductInfoChargeText = styled.span`
+    /* text */
+
+    position: static;
+    width: 364px;
+    height: 18px;
+    left: 76px;
+    top: 0px;
+
+    /* Regular/X-Small Regular */
+
+    font-family: "Noto Sans KR";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 18px;
+    /* identical to box height, or 150% */
+
+    letter-spacing: -0.004em;
+
+    /* GreyScale/Black */
+
+    color: #1b1b1b;
+
+    /* Inside auto layout */
+
+    flex: none;
+    order: 1;
+    flex-grow: 0;
+    margin: 0px 16px;
+`;
+const PopupproductInfoChargeLabel = styled.span`
+    /* label */
+
+    position: static;
+    width: 60px;
+    height: 18px;
+    left: 0px;
+    top: 0px;
+
+    /* Regular/X-Small Regular */
+
+    font-family: "Noto Sans KR";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 18px;
+    /* identical to box height, or 150% */
+
+    letter-spacing: -0.004em;
+
+    /* GreyScale/Grey2 */
+
+    color: #777777;
+
+    /* Inside auto layout */
+
+    flex: none;
+    order: 0;
+    flex-grow: 0;
+    margin: 0px 16px;
+`;
 export {
     Popup,
     PopupProduct,
@@ -189,11 +381,20 @@ export {
     PopupProductDetailSection1,
     PopupProductDetailSection2,
     PopupProductDetailSection3,
+    PopupproductInfoPoint,
+    PopupproductInfoPointText,
+    PopupproductInfoPointLabel,
+    PopupproductInfoDeliveryInfo,
+    PopupproductInfoDeliveryInfoText,
+    PopupproductInfoDeliveryInfoLabel,
+    PopupproductInfoCharge,
+    PopupproductInfoChargeText,
+    PopupproductInfoChargeLabel,
     PopupProductInfoCloseBtn,
     PopupProductInfoName,
     PopupProductInfoPrimeCost,
     PopupProductInfoBadgeAndPrice,
-    PopupProductInfoBadgeAndPrice,
+    PopupProductInfoBadgeAndPriceTag,
 };
 
 // .popup{
