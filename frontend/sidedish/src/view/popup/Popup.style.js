@@ -1,16 +1,49 @@
 import styled from "styled-components";
 const Popup = styled.div`
-    display: flex;
+    display: ${({ show }) => (show ? "flex" : "none")};
+    justify-content: center;
     width: 100%;
     height: 100%;
+    background-color: rgba(0, 0, 0, 0.3);
+`;
+const PopupBox = styled.div`
+    display: flex;
+    flex-direction: column;
+    width: 960px;
+    height: 994px;
     align-items: center;
     justify-content: center;
-    flex-direction: column;
+
+    background-color: #ffffff;
+    border: 1px solid #1b1b1b;
+    margin-top: 32px;
+    padding: 27px;
+`;
+const PopupProductInfoCloseBtn = styled.span`
+    background-color: #fff;
+    border: none;
+
+    width: 32px;
+    height: 26px;
+
+    font-family: "Noto Sans KR";
+    font-style: normal;
+    font-weight: 400;
     font-size: 15px;
+    line-height: 26px;
+
+    position: relative;
+    left: 45%;
+    top: 0%;
+    padding: 10px;
+    margin-bottom: 5px;
+
+    cursor: pointer;
 `;
 const PopupProduct = styled.div`
     display: flex;
     flex-direction: row;
+    justify-content: space-around;
     width: 960px;
     height: 596px;
 `;
@@ -41,23 +74,9 @@ const PopupProductInfo = styled.div`
     height: 237px;
     left: 472px;
     top: 76px;
+    margin-left: 32px;
 `;
-const PopupProductInfoCloseBtn = styled.span`
-    background-color: #fff;
-    border: none;
 
-    width: 30px;
-    height: 26px;
-    left: 882px;
-    top: 32px;
-
-    font-family: "Noto Sans KR";
-    font-style: normal;
-    font-weight: 400;
-    font-size: 16px;
-    line-height: 26px;
-    letter-spacing: -0.008em;
-`;
 const PopupProductInfoName = styled.span`
     width: 440px;
     height: 30px;
@@ -86,7 +105,11 @@ const PopupProductInfoPrimeCost = styled.span`
 
     letter-spacing: -0.008em;
 `;
-const PopupProductInfoBadgeAndPrice = styled.span`
+const PopupProductInfoBadge = styled.span`
+    display: flex;
+    flex-direction: row;
+`;
+const PopupProductInfoBadgePrice = styled.span`
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -97,7 +120,7 @@ const PopupProductInfoBadgeAndPrice = styled.span`
     left: 472px;
     top: 154px;
 `;
-const PopupProductInfoBadgeAndPriceTag = styled.span`
+const PopupProductInfoBadgeTag = styled.span`
     /* Auto layout */
 
     display: flex;
@@ -558,59 +581,40 @@ const PopupProductOrderChoiceBtnText = styled.span`
 `;
 const RelatedProduct = styled.div`
     /* RelatedProduct */
-
+    display: flex;
+    flex-direction: column;
     width: 960px;
     height: 396px;
     left: 0px;
     top: 598px;
-
-    /* Inside auto layout */
-
-    flex: none;
-    order: 2;
-    flex-grow: 0;
-    margin: 0px 0px;
+`;
+const RelatedProductHeader = styled.div`
+    display: flex;
+    justify-content: space-between;
 `;
 const RelatedProductTitle = styled.span`
-    /* Title */
-
-    position: absolute;
-    width: 214px;
+    width: auto;
     height: 30px;
     left: 48px;
     top: 646px;
-
-    /* Bold/Large Bold */
 
     font-family: "Noto Sans KR";
     font-style: normal;
     font-weight: 500;
     font-size: 20px;
     line-height: 30px;
-    /* identical to box height, or 150% */
 
     letter-spacing: -0.008em;
 
-    /* GreyScale/Grey1 */
-
     color: #3f3f3f;
 `;
-const RelatedProductNav = styled.div`
-    /* Nav */
-
-    /* Auto layout */
-
+const RelatedProductNav = styled.span`
     display: flex;
     flex-direction: row;
-    justify-content: center;
     align-items: center;
     padding: 0px;
 
-    position: absolute;
-    width: 102px;
-    height: 24px;
-    left: 810px;
-    top: 649px;
+    width: auto;
 `;
 const RelatedProductNavWholePage = styled.span`
     width: 8px;
@@ -618,22 +622,14 @@ const RelatedProductNavWholePage = styled.span`
     left: 62px;
     top: 0px;
 
-    /* Regular/Small Regular */
-
     font-family: "Noto Sans KR";
     font-style: normal;
     font-weight: 400;
     font-size: 14px;
     line-height: 24px;
-    /* identical to box height, or 171% */
 
     letter-spacing: -0.008em;
-
-    /* GreyScale/Grey1 */
-
     color: #3f3f3f;
-
-    /* Inside auto layout */
 
     flex: none;
     order: 3;
@@ -646,22 +642,15 @@ const RelatedProductNavCurrentPage = styled.span`
     left: 62px;
     top: 0px;
 
-    /* Regular/Small Regular */
-
     font-family: "Noto Sans KR";
     font-style: normal;
     font-weight: 400;
     font-size: 14px;
     line-height: 24px;
-    /* identical to box height, or 171% */
 
     letter-spacing: -0.008em;
 
-    /* GreyScale/Grey1 */
-
     color: #3f3f3f;
-
-    /* Inside auto layout */
 
     flex: none;
     order: 3;
@@ -682,15 +671,13 @@ const RelatedProductCard = styled.img`
     left: 0px;
     top: 0px;
 
-    /* Inside auto layout */
-
-    flex: none;
     order: 0;
     flex-grow: 0;
     margin: 8px 0px;
 `;
 export {
     Popup,
+    PopupBox,
     PopupProduct,
     PopupProductImgContainer,
     PopupProductImg,
@@ -703,8 +690,9 @@ export {
     PopupProductDetailSection3,
     PopupProductInfoName,
     PopupProductInfoPrimeCost,
-    PopupProductInfoBadgeAndPrice,
-    PopupProductInfoBadgeAndPriceTag,
+    PopupProductInfoBadge,
+    PopupProductInfoBadgePrice,
+    PopupProductInfoBadgeTag,
     PopupproductInfoPoint,
     PopupproductInfoPointText,
     PopupproductInfoPointLabel,
@@ -724,6 +712,7 @@ export {
     PopupProductOrderChoiceBtn,
     PopupProductOrderChoiceBtnText,
     RelatedProduct,
+    RelatedProductHeader,
     RelatedProductTitle,
     RelatedProductNav,
     RelatedProductNavWholePage,
@@ -733,28 +722,3 @@ export {
     RelatedProductWrapScroll,
     RelatedProductCard,
 };
-
-// .popup{
-//     display: flex;
-// width: 100%;
-// height: 100%;
-// align-items: center;
-// justify-content: center;
-// flex-direction: column;
-// font-size: 15px;
-// }
-// .popup__product{
-// display: flex;
-// flex-direction: row;
-// width: 960px;
-// height: 596px;
-// }
-// .popup__product-img{
-//     width: 392px;
-//     height: 392px;
-// }
-
-// .popup__product-detail{
-//     display: flex;
-//     flex-direction: column;
-// }
